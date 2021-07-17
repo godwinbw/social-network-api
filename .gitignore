@@ -1,3 +1,11 @@
+# mac
+.DS_Store
+build
+npm-debug.log
+.env
+node_modules
+
+
 # Logs
 logs
 *.log
