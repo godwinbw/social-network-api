@@ -126,7 +126,7 @@ const userController = {
 
     User.findOneAndUpdate(
       { _id: req.params.id },
-      { $pull: { friends: { _id: req.params.friendId } } },
+      { $pull: { friends: req.params.friendId } },
       { new: true }
     )
       .then((dbData) => res.json(dbData))
