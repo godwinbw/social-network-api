@@ -10,6 +10,8 @@ This app uses the following technologies:
 - MondoDB database
 - Mongoose ODM
 
+Only the back-end API is implemented, functionality is demo'd using Insomnia Core
+
 ### **User Story**
 
     AS A social media startup
@@ -38,24 +40,14 @@ This app uses the following technologies:
     WHEN I test API POST and DELETE routes in Insomnia Core
     THEN I am able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
 
-
 ### **Challenge 18 - code repository**
 
 <https://github.com/godwinbw/social-network-api>
 
 ### **Challenge 18 - screenshots**
 
-<!--
 <img src="./screenshot-1.png" style="width: 50%; height=auto;">
-
-<img src="./screenshot-1.png" style="width: 50%; height=auto;">
-
-<img src="./screenshot-1.png" style="width: 50%; height=auto;">
-
--->
 
 ### Challenge 18 - link to walkthrough video
 
-<!--
-<https://polar-sea-27289.herokuapp.com/>
--->
+<https://streamable.com/de4crk/>
