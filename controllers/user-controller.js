@@ -25,6 +25,15 @@ const userController = {
       });
   },
 
+  deleteAllUsers(req, res) {
+    console.log("deleting all users...");
+    User.deleteMany({})
+      .then((deletedUsers) => {
+        res.json(deletedUsers);
+      })
+      .catch((err) => res.status(400).json(err));
+  },
+
   // get a single user by _id and populated thought and friend data
   getUserById(req, res) {
     User.findOne({ _id: req.params.id })
@@ -74,10 +83,12 @@ const userController = {
   },
 
   // delete to remove a user by _id
+  // bonus: remove a user's associated thoughts when deleted
+
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.id })
-      .then((dbData) => {
-        if (!dbData) {
+      .then((deletedUser) => {
+        if (!deletedUser) {
           res.status(404).json({ message: "No user found with this id!" });
           return;
         }
@@ -88,12 +99,38 @@ const userController = {
 
   // post to add a new friend to a user's friend list
   addFriendToUser(req, res) {
-    res.json(notImplemented);
+    console.log("add a friend to a user");
+    console.log("...user id -> " + req.params.id);
+    console.log("...friend id -> " + req.params.friendId);
+
+    User.findOneAndUpdate(
+      { _id: req.params.id },
+      { $push: { friends: { _id: req.params.friendId } } },
+      { new: true, runValidators: true }
+    )
+      .then((dbData) => {
+        if (!dbData) {
+          res.status(404).json({ message: "No user found with this id!" });
+          return;
+        }
+        res.json(dbData);
+      })
+      .catch((err) => res.json(err));
   },
 
   // delete to remove a friend from a user's friend list
   removeFriendFromUser(req, res) {
-    res.json(notImplemented);
+    console.log("remove a friend from a user");
+    console.log("...user id -> " + req.params.id);
+    console.log("...friend id -> " + req.params.friendId);
+
+    User.findOneAndUpdate(
+      { _id: req.params.id },
+      { $pull: { friends: { _id: req.params.friendId } } },
+      { new: true }
+    )
+      .then((dbData) => res.json(dbData))
+      .catch((err) => res.json(err));
   },
 };
 
